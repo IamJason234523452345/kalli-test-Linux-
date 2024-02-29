@@ -1,0 +1,62 @@
+import os
+import stat
+import pwd
+import grp  
+
+def get_file_permissions(file_path):
+
+  stat_info = os.stat(file_path)
+
+  permissions = stat_info.st_mode
+
+  print("File permissions:")
+
+  print(f"- Read permission for owner: {permissions & stat.S_IRUSR > 0}")
+  print(f"- Write permission for owner: {permissions & stat.S_IWUSR > 0} ")
+  print(f"- Execute permission for owner: {permissions & stat.S_IXUSR > 0}")
+
+  print(f"- Read permission for group: {permissions & stat.S_IRGRP > 0}")
+  print(f"- Write permission for group: {permissions & stat.S_IWGRP > 0}")
+  print(f"- Execute permission for group: {permissions & stat.S_IXGRP > 0}")
+
+  print(f"- Read permission for others: {permissions & stat.S_IROTH > 0}")
+  print(f"- Write permission for others: {permissions & stat.S_IWOTH > 0}")
+  print(f"- Execute permission for others: {permissions & stat.S_IXOTH > 0}")
+
+def get_file_owner(file_path):
+  
+  stat_info = os.stat(file_path)
+
+  uid = stat_info.st_uid
+  gid = stat_info.st_gid
+
+  user = pwd.getpwuid(uid)[0]
+  group = grp.getgrgid(gid)[0]
+
+  print(f"\nFile owner:")
+  print(f"- User: {user}")
+  print(f"- Group: {group}")
+
+def read_file(file_path):
+  
+  print(f"\nReading file: {file_path}")
+
+  with open(file_path, 'r') as f:
+    print(f.read())
+
+def write_file(file_path, new_content):
+
+  print(f"\nWriting to file: {file_path}")
+
+  with open(file_path, 'w') as f:
+    f.write(new_content)
+  
+  print("File contents updated")
+
+file_path = "/etc/passwd"
+
+get_file_permissions(file_path)
+get_file_owner(file_path)
+read_file(file_path)
+
+write_file(file_path, new_content)
