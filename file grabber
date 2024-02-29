@@ -1,0 +1,31 @@
+import os
+
+files = os.listdir()
+print(files)
+
+os.chdir('/etc')
+
+print(os.getcwd())
+
+os.system('ls -l')
+
+os.mkdir('new_directory')
+
+os.remove('file_to_remove.txt')
+
+if os.path.exists('file_to_check.txt'):
+    print('File exists!')
+
+with open('example.txt', 'r') as file:
+    content = file.read()
+    print(content)
+
+with open('new_file.txt', 'w') as new_file:
+    new_file.write('Hello, Kali Linux!')
+
+os.system('ifconfig')
+os.system('ping google.com')
+
+os.system('sudo apt-get install nmap')
+
+os.system('sudo apt-get update && sudo apt-get upgrade')
